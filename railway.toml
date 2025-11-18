@@ -1,16 +1,6 @@
-# Railway Deployment Config
-
 [build]
-builder = "dockerfile"
-dockerfile = "Dockerfile"
-builder = "NIXPACKS"
+builder = "heroku/buildpacks:20"
 
 [deploy]
-# Railway exposes PORT via environment variable
-startCommand = ""
+startCommand = "python manage.py runserver 0.0.0.0:$PORT"
 restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 5
-
-
-[start]
-cmd = "python manage.py runserver 0.0.0.0:$PORT"
