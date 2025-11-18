@@ -5,15 +5,17 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-key'
-DEBUG = True   # temporarily
+DEBUG = True   # Keep TRUE until everything works
 
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "*.railway.app",
+    "seatingbackend-production.up.railway.app",
+    ".railway.app",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "https://seatingbackend-production.up.railway.app",
     "https://*.railway.app",
 ]
 
@@ -62,7 +64,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'seatingbackend.wsgi.application'
 
-# ---------------- DATABASE ----------------
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL:
@@ -77,7 +78,6 @@ else:
         }
     }
 
-# ---------------- STATIC FILES ----------------
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
@@ -91,3 +91,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+# ------ FIX FOR ADMIN 403 / CSRF ------------
+
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+
