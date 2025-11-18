@@ -1,8 +1,9 @@
-Django>=5.0
+django
 djangorestframework
 django-cors-headers
 dj-database-url
+gunicorn
 psycopg2-binary
 pandas
+openpyxl
 djangorestframework-simplejwt
-gunicorn
