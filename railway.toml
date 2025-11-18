@@ -1,6 +1,6 @@
+# railway.toml
 [build]
 builder = "heroku/buildpacks:20"
 
-[deploy]
-startCommand = "python manage.py runserver 0.0.0.0:$PORT"
-restartPolicyType = "ON_FAILURE"
+[start]
+cmd = "gunicorn seatingbackend.wsgi --bind 0.0.0.0:${PORT}"
