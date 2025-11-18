@@ -1,11 +1,11 @@
 # Railway Deployment Config
 
 [build]
-builder = "DOCKERFILE"
+builder = "dockerfile"
 dockerfile = "Dockerfile"
 
 [deploy]
 # Railway exposes PORT via environment variable
-startCommand = "python manage.py runserver 0.0.0.0:$PORT"
+startCommand = ""
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 5
