@@ -1,10 +1,6 @@
 # Use official Python image
 FROM python:3.10-slim
 
-# Prevent Python from writing .pyc files
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
 # Set work directory
 WORKDIR /app
 
@@ -18,5 +14,5 @@ COPY . /app/
 # Expose port
 EXPOSE 8000
 
-# Run Gunicorn server
-CMD ["gunicorn", "seatingbackend.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Run migrations + start server
+CMD ["bash", "-c", "python manage.py migrate && gunicorn seatingbackend.wsgi:application --bind 0.0.0.0:$PORT"]
