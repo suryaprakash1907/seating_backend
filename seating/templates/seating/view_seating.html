@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Seating</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #e0e0e0;
+        }
+        .room-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .year-header {
+            background: #ccc;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>View Seating Arrangement</h2>
+
+    <!-- Filter Form -->
+    <form method="GET">
+        <label>Select Exam Date:</label><br>
+        <input type="date" name="date" value="{{ selected_date }}" required><br><br>
+
+        <label>Select Room:</label><br>
+        <select name="room" required>
+            {% for r in rooms %}
+                <option value="{{ r.code }}" {% if selected_room == r.code %}selected{% endif %}>
+                    {{ r.code }}
+                </option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <button type="submit">View Seating</button>
+    </form>
+
+    {% if seating %}
+        <div class="room-title">ROOM: {{ selected_room }} | DATE: {{ selected_date }}</div>
+
+        <table>
+            <tr class="year-header">
+                {% for y in pattern %}
+                    <th>
+                        {% if y == 1 %}
+                            I YEAR
+                        {% elif y == 2 %}
+                            II YEAR
+                        {% else %}
+                            III YEAR
+                        {% endif %}
+                    </th>
+                {% endfor %}
+            </tr>
+
+            {% for row in seating %}
+                <tr>
+                    {% for cell in row %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+</body>
+</html>

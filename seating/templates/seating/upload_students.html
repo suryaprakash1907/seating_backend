@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Students</title>
+</head>
+<body>
+    <h2>Upload Student Excel</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Select Excel File:</label><br>
+        <input type="file" name="file" required><br><br>
+
+        <label>Select Year:</label><br>
+        <select name="year" required>
+            <option value="1">I Year</option>
+            <option value="2">II Year</option>
+            <option value="3">III Year</option>
+        </select><br><br>
+
+        <button type="submit">Upload Students</button>
+    </form>
+
+    {% if message %}
+        <p style="color: green;">{{ message }}</p>
+    {% endif %}
+</body>
+</html>

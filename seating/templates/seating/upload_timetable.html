@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Timetable</title>
+</head>
+<body>
+    <h2>Upload Timetable Excel</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Select Timetable Excel File:</label><br>
+        <input type="file" name="file" required><br><br>
+
+        <button type="submit">Upload Timetable</button>
+    </form>
+
+    {% if message %}
+        <p style="color: green;">{{ message }}</p>
+    {% endif %}
+</body>
+</html>

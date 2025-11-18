@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Seating</title>
+</head>
+<body>
+    <h2>Generate Seating</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Select Exam Date:</label><br>
+        <input type="date" name="date" required><br><br>
+
+        <label>Room Capacity:</label><br>
+        <input type="number" name="capacity" required><br><br>
+
+        <label>Number of Rooms:</label><br>
+        <input type="number" name="rooms" required><br><br>
+
+        <button type="submit">Generate Seating</button>
+    </form>
+
+    {% if message %}
+        <p style="color: green;">{{ message }}</p>
+    {% endif %}
+</body>
+</html>
