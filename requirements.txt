@@ -1,5 +1,6 @@
-Django
 djangorestframework
 gunicorn
 pillow
 openpyxl
+Django==4.2
+whitenoise
