@@ -1,6 +1,5 @@
-# railway.toml
 [build]
-builder = "heroku/buildpacks:20"
+builder = "NIXPACKS"
 
 [start]
-cmd = "gunicorn seatingbackend.wsgi --bind 0.0.0.0:${PORT}"
+cmd = "gunicorn seatingbackend.wsgi:application --bind 0.0.0.0:$PORT"

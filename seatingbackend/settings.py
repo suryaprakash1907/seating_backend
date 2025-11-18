@@ -4,8 +4,11 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-key'
-DEBUG = True   # Keep TRUE until everything works
+# -------------------------------------------------------
+# SECURITY
+# -------------------------------------------------------
+SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
+DEBUG = True   # Keep True until everything is fully working
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -19,6 +22,9 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.railway.app",
 ]
 
+# -------------------------------------------------------
+# INSTALLED APPS
+# -------------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -26,16 +32,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third-party
     'rest_framework',
     'corsheaders',
+
+    # Your app
     'seating',
 ]
 
+# -------------------------------------------------------
+# MIDDLEWARE
+# -------------------------------------------------------
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -45,6 +60,9 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+# -------------------------------------------------------
+# URLS, TEMPLATES, WSGI
+# -------------------------------------------------------
 ROOT_URLCONF = 'seatingbackend.urls'
 
 TEMPLATES = [
@@ -64,6 +82,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'seatingbackend.wsgi.application'
 
+# -------------------------------------------------------
+# DATABASE (Railway PostgreSQL)
+# -------------------------------------------------------
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL:
@@ -78,6 +99,9 @@ else:
         }
     }
 
+# -------------------------------------------------------
+# STATIC & MEDIA
+# -------------------------------------------------------
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
@@ -86,14 +110,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# -------------------------------------------------------
+# REST FRAMEWORK (JWT)
+# -------------------------------------------------------
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 
-# ------ FIX FOR ADMIN 403 / CSRF ------------
-
+# -------------------------------------------------------
+# FIX ADMIN 403 on Railway
+# -------------------------------------------------------
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
-
