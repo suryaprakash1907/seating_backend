@@ -82,11 +82,9 @@ WSGI_APPLICATION = 'seatingbackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import dj_database_url
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 
@@ -152,7 +150,9 @@ import os
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*",".railway.app",
+    "127.0.0.1",
+    "localhost"]
 
 # Static and media files on Railway
 STATIC_URL = '/static/'
